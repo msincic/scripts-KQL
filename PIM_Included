@@ -1,0 +1,3 @@
+//List operations to include a new user in a PIM
+AuditLogs
+| where OperationName contains "Add eligible member to role in PIM"
