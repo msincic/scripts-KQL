@@ -1,0 +1,6 @@
+//Generate a barchart with events in the last x days
+Event
+| where TimeGenerated >= ago(120d)
+| summarize count() by bin(TimeGenerated, 1d) 
+| order by TimeGenerated
+| render barchart 
