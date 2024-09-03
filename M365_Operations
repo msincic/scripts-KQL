@@ -1,0 +1,11 @@
+//List all operation in M365 on the last month
+OfficeActivity 
+| where TimeGenerated < now(-1m)
+| summarize count() by Operation
+| order by Operation asc 
+
+//List IP and DLP operation in M365 on the last month
+OfficeActivity 
+| where TimeGenerated < now(-1m)
+| where Operation contains "TagApplied" or Operation contains "DLPRulematch"
+| order by Operation asc
