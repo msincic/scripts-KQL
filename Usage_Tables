@@ -1,0 +1,5 @@
+//List all usage tables in x days to see anomalous informations send
+Usage
+| where TimeGenerated > ago(60d)
+| summarize VolumeMB=sum(Quantity) by bin(TimeGenerated, 1d), DataType
+| render columnchart  
