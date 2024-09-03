@@ -18,3 +18,20 @@ OfficeActivity
 SecurityEvent
 | extend Evento = extract("<RuleName>(.*)</RuleName>", 1, EventData)
 | project Computer, Evento, EventData
+
+//Use of variables and extract specific string
+let Servico="MICROSOFT.SQL";
+let Tempo=ago(60d);
+AzureMetrics
+| where ResourceProvider == Servico
+| where TimeGenerated >=Tempo
+| where MetricName in ('deadlock')
+| parse _ResourceId with * "/microsoft.sql/servers/" Resource // subtract Resource name for _ResourceId
+| summarize Deadlock_max_60Mins = max(Maximum) by Resource, MetricName
+
+//Extract specific data in string
+AzureMetrics
+| extend Servidor=extract("/SERVERS/(.*)/DATABASES/", 1, ResourceId)
+| extend Banco   =extract("/DATABASES/(.*)", 1, ResourceId)
+| where isnotempty(Servidor) 
+| project Servidor, Banco, ResourceId
