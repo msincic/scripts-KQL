@@ -1,0 +1,14 @@
+//Create a time chart of heartbeat frequencies of computers
+Heartbeat
+| summarize count() by Computer, bin(TimeGenerated, 1h)
+| render timechart  
+
+//Create a column bar chat with type of changes by computer
+ConfigurationChange
+| summarize count() by Computer, ConfigChangeType
+| render barchart 
+
+//Pie chart
+ConfigurationChange
+| summarize count() by Computer
+| render piechart  
