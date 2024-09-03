@@ -1,0 +1,5 @@
+//Generate a simple table to use for map anomolous or more expensive tables in Log Analytics
+Usage
+| where StartTime between (datetime("2024-07-01") .. datetime("2024-08-01"))
+| summarize sum(Quantity) by Solution, DataType, ResourceUri, QuantityUnit, IsBillable, Dia=datetime_part('day', StartTime), Mes=datetime_part('month', StartTime), Ano=datetime_part('year', StartTime) 
+| order by Solution, DataType, Ano, Mes, Dia
