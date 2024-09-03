@@ -1,0 +1,12 @@
+//List Defender for workloads settings in all tenant
+SecurityResources 
+| where type              == 'microsoft.security/pricings' 
+| join kind=inner (resourcecontainers 
+| where type == "microsoft.resources/subscriptions"
+| project subscriptionId, subscriptionName = name)
+  on $left.subscriptionId == $right.subscriptionId
+| extend Coverage         = properties.resourcesCoverageStatus
+| extend Plan             = properties.pricingTier
+| extend SubPlan          = properties.subPlan
+| extend Extensions       = properties.extensions
+| project subscriptionName, subscriptionId, CWPP=name, Coverage, Plan, SubPlan, Extensions
