@@ -12,3 +12,9 @@ OfficeActivity
 | extend Pasta        = Propriedades[0].Path
 | extend Tamanho      = Propriedades[0].FolderItems[0].SizeInBytes
 | project Operation, Pasta, Tamanho, Propriedades
+
+
+//Extract a specific data in string
+SecurityEvent
+| extend Evento = extract("<RuleName>(.*)</RuleName>", 1, EventData)
+| project Computer, Evento, EventData
