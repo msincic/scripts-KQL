@@ -1,0 +1,9 @@
+//List logins using malicious IP
+SigninLogs
+| where IPAddress in (ThreatIntelligenceIndicator | distinct NetworkSourceIP)
+
+//List all threat actor with brute force tatics 
+ThreatIntelligenceIndicator | where Description contains "brute force" | summarize count() by Type
+
+//Summarize of tactics and technics
+ThreatIntelligenceIndicator |  summarize count() by Tags
