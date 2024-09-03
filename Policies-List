@@ -1,0 +1,9 @@
+//List all policies BuiltIn. Use to study and apply if needed
+policyresources     
+| where ['kind']== "policydefinitions"
+| extend Desc    = properties.description
+| extend Display = properties.displayName
+| extend Meta    = properties.metadata
+| extend Tipo    = properties.policyType
+| where  Tipo    !in("Static", "Custom")
+| project name, Display, Meta, Desc, Tipo, properties
