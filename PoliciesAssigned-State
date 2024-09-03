@@ -1,0 +1,15 @@
+//List all policies assigned in tenant with compliance state and details
+policyresources
+| join kind=inner (resourcecontainers 
+| where type == "microsoft.resources/subscriptions"
+| project subscriptionId, subscriptionName = name)
+  on $left.subscriptionId == $right.subscriptionId
+| extend State        =properties.complianceState 
+| extend PolicyAction =properties.policyDefinitionAction
+| extend PolicyName   =properties.policyDefinitionName 
+| extend Timestamp    =properties.timestamp
+| extend ResourceType =properties.resourceType
+| extend ResourceName =split(properties.resourceId,"/")[8]
+| where State        == "NonCompliant"    //Remove to list all
+| project subscriptionId, subscriptionName, PolicyName, Timestamp, resourceGroup, State, PolicyAction, ResourceType, ResourceName
+| order by 2 desc 
