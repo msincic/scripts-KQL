@@ -1,0 +1,20 @@
+//Detect SQL Injections tries
+AppRequests
+    | where TimeGenerated > ago(1d) 
+    | where Success == False
+    | where Url contains "select" or Url contains "union"
+    | project Url, ClientCountryOrRegion, ClientStateOrProvince, ClientCity, ClientIP;
+
+
+//List of all IPs where page is return false (possible scan)
+AppRequests
+    | where TimeGenerated > ago(1d) 
+    | where Success == False
+    | summarize count() by ClientIP, ClientCountryOrRegion;
+
+//List tentatives to use compacted files 
+AppRequests
+    | where TimeGenerated > ago(1d) 
+    | where Success == False
+    | where Url contains "zip" or Url contains "rar"
+    | project ClientCountryOrRegion, ClientStateOrProvince, ClientCity, ClientIP, Url;
