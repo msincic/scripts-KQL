@@ -1,0 +1,14 @@
+//Extract alert name and rule for security incidents
+SecurityAlert
+| extend Extendido=todynamic(ExtendedProperties)
+| extend AlertaGerado = Extendido.["Alert generation status"]
+| extend Regra = Extendido.["Analytic Rule Name"]
+
+
+//Extract folder and size of email. Example to access multiple array in logs
+OfficeActivity 
+| where Operation == "MailItemsAccessed"
+| extend Propriedades = parse_json(Folders)
+| extend Pasta        = Propriedades[0].Path
+| extend Tamanho      = Propriedades[0].FolderItems[0].SizeInBytes
+| project Operation, Pasta, Tamanho, Propriedades
