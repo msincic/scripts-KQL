@@ -1,0 +1,12 @@
+//List top 10 computers more accessed and changed
+let ComputadoresMaisAlterados = ConfigurationChange
+      | summarize Alteracoes=count() by Computer
+      | top 10 by Alteracoes
+      | project Computer;
+SecurityEvent
+| where Computer in (ComputadoresMaisAlterados)
+| where Account !contains "NT "
+| where Account !endswith "$"
+| where AccountType == "User"
+| summarize Alteracoes=count() by Computer, Account, AccountType
+| order by Alteracoes
