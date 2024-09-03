@@ -1,0 +1,11 @@
+//Use a Sentinel Threat Intel database to discover emails with malicious domains
+let Dominios = ThreatIntelligenceIndicator | distinct  DomainName;
+EmailUrlInfo
+| where TimeGenerated > ago(90d) 
+| where UrlDomain in (Dominios)
+
+//Use a Sentinel Threat Intel database to discover emails received by malicious IP
+let IPs = ThreatIntelligenceIndicator | where isnotempty(NetworkSourceIP) | distinct NetworkSourceIP;
+EmailEvents 
+| where TimeGenerated > ago(90d) 
+| where SenderIPv4 in (IPs)
