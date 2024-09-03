@@ -1,0 +1,6 @@
+//Simple table to show classic (OMA) and monitor agent (AMA) and last send heartbeat
+Heartbeat
+| where OSType == 'Windows'
+| project Computer, Category, TimeGenerated
+| summarize arg_max(TimeGenerated, *) by Computer, Category
+| sort by TimeGenerated
