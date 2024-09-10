@@ -29,6 +29,7 @@ This is a samples of scripts to use in security and compliance activities
   <tr><td>ThreatIntel-Examples</td><td>Log Analytics</td><td>Samples to use Microsoft Defender Threat Intel table to detect malicious IP in sign-ins and consult tables</td></tr>
   <tr><td>Usage_Tables</td><td>Log Analytics</td><td>Graph to identify and understand tables growing</td></tr>
   <tr><td>VM_Process_Comm</td><td>Log Analytics</td><td>List of process communicated in all computers with IP and Port, source, destination, bytes send and received</td></tr>
+  <tr><td> VMs+Scale Set User Identity</td><td>Resource Graph</td><td>List VMs and Scale Sets using User Identity to mapped permissions</td></tr>
 
   </tbody>
 </Table>
