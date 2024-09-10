@@ -1,0 +1,6 @@
+//List VMs have user identity to run workloadas
+resources
+| where type == "microsoft.compute/virtualmachines" 
+     or type == "microsoft.compute/virtualmachinescalesets"
+| where identity contains "UserAssign"
+| project ['id'], name, identity
