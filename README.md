@@ -33,5 +33,6 @@ This is a samples of scripts to use in security and compliance activities
 
   </tbody>
 </Table>
+<h2>You can view other examples in <a>"https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/advanced"</a></h2>
 
 <h3>If you have a question, send me email msincic @ microsoft.com</h3>
