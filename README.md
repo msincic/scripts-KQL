@@ -19,6 +19,7 @@ This is a samples of scripts to use in security and compliance activities
   <tr><td>Events_Chart_ByDay</td><td>Log Analytics</td><td>Example of chat to detect anomolous events registered</td></tr>
   <tr><td>Graph_examples</td><td>Log Analytics</td><td>Examples of graph (bar, time, pie)</td></tr>
   <tr><td>List_CWPP</td><td>Resource Graph</td><td>List workload protections in all subscriptions to map a coverage protection in your environment</td></tr>
+  <tr><td>List-Deployments-and-Details</td><td>Log Analytics</td><td>List all deploymentos to audit object creations and details about dependant objects in the same deploy</td></tr>
   <tr><td>M365_Operations</td><td>Log Analytics</td><td>List operations in M365 and IP/DLP actions</td></tr>
   <tr><td>More-Changed-Computers</td><td>Log Analytics</td><td>List top 10 computers and users with changed configs</td></tr>
   <tr><td>PIM_Included</td><td>Log Analytics</td><td>List activities of include users in PIM</td></tr>
