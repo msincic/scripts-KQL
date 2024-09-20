@@ -1,0 +1,20 @@
+//List all deployments (templates actions) executed in Azure in last 30 days
+AzureActivity
+| where TimeGenerated <= ago(-30d)
+| where OperationNameValue contains "DEPLOYMENTS"
+| where ActivityStatusValue == "Success"
+| extend STCode = tostring(parse_json(Properties).statusCode)
+| extend ResourceName = tostring(split(_ResourceId, "/")[-1])
+| where STCode == "Created"
+
+
+//List all details and dependant objects created in previous deployments templates using CorrelationID
+//In Power BI use CorrelationID to create a drilldown
+AzureActivity
+| where TimeGenerated <= ago(-30d)
+| where OperationNameValue !contains "DEPLOYMENTS"
+| where ActivityStatusValue == "Success"
+| where CategoryValue == "Administrative"
+| where CorrelationId == 'xxxx'
+| extend ResourceName = tostring(split(_ResourceId, "/")[-1])
+| extend principalType_ = tostring(parse_json(tostring(parse_json(Authorization).evidence)).principalType)
