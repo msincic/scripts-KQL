@@ -1,0 +1,8 @@
+//List create a disgnostic settings
+//If create more time of 90 days, you need use alternative storage of Azure Activity table
+AzureActivity
+| where OperationNameValue contains "DIAGNOSTICSETTINGS" 
+| where ActivityStatusValue == "Start"
+| where TimeGenerated >= ago(720d)
+| extend LAW = parse_json((parse_json(tostring(parse_json(tostring(parse_json(Properties).requestbody)))).properties).workspaceId)
+| project TimeGenerated, _ResourceId, LAW
